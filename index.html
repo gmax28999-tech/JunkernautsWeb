@@ -184,8 +184,9 @@
             <strong>Email:</strong> <a href="mailto:junkernaut55@gmail.com">junkernaut55@gmail.com</a></p>
         </div>
 
-        <!-- Form setup: see README.md ("Connecting the quote form"). -->
-        <form class="quote-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+        <!-- Submissions go to Formspree, which emails them to you. -->
+        <form class="quote-form" action="https://formspree.io/f/moedyyoj" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New quote request from the website">
           <div class="field-row">
             <label>Name
               <input type="text" name="name" autocomplete="name" required>
