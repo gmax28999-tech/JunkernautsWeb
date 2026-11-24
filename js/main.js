@@ -1,6 +1,13 @@
 // Junkernauts site behaviour: mobile menu, header shadow, quote form.
 
 (function () {
+  // Palette preview: add ?palette=orange|navy|forest|steel|hazard to the URL
+  var palettes = ["hazard", "orange", "navy", "forest", "steel"];
+  var wanted = new URLSearchParams(window.location.search).get("palette");
+  if (wanted && palettes.indexOf(wanted) !== -1) {
+    document.documentElement.setAttribute("data-palette", wanted);
+  }
+
   // Footer year
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();

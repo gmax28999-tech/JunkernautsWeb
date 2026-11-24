@@ -1,15 +1,21 @@
 /* ==========================================================
    Junkernauts — "Hazard Bold" theme
-   Change the brand colour in one place: --hazard
+
+   Colour palettes: set data-palette on <html> in index.html
+   (hazard, orange, navy, forest, steel). To try one without
+   editing, add ?palette=navy (etc.) to the page address.
    ========================================================== */
 
 :root {
-  --hazard: #FFD400;
-  --ink: #111111;
-  --ink-2: #262626;
+  /* hazard (default): black + safety yellow */
+  --hazard: #FFD400;        /* accent */
+  --hazard-hover: #FFE04D;
+  --on-hazard: #111111;     /* text on the accent */
+  --ink: #111111;           /* dark background */
+  --ink-2: #262626;         /* raised / placeholder */
   --ink-3: #303030;
   --line: #333333;
-  --paper: #F4F1EA;
+  --paper: #F4F1EA;         /* light quote section */
   --white: #FFFFFF;
   --muted: #BDBDBD;
   --muted-2: #D4D4D4;
@@ -20,6 +26,34 @@
   --radius: 4px;
   --max: 1200px;
   --gutter: 24px;
+}
+
+/* Safety orange on charcoal: same energy, warmer */
+[data-palette="orange"] {
+  --hazard: #FF6A13; --hazard-hover: #FF8A45; --on-hazard: #111111;
+  --ink: #16181D; --ink-2: #23262D; --ink-3: #2C3038; --line: #353A44;
+  --paper: #F3F0EB;
+}
+
+/* Navy + gold: a nod to the "-naut" name, more polished */
+[data-palette="navy"] {
+  --hazard: #F5B700; --hazard-hover: #FFC933; --on-hazard: #0B1426;
+  --ink: #0B1426; --ink-2: #17223A; --ink-3: #1F2C49; --line: #2B3A5A;
+  --paper: #F3F1EA;
+}
+
+/* Forest green: eco / clean-up feel (deep green, no neon) */
+[data-palette="forest"] {
+  --hazard: #5FAE2E; --hazard-hover: #74C443; --on-hazard: #07110B;
+  --ink: #0A140E; --ink-2: #142219; --ink-3: #1B2C21; --line: #26392D;
+  --paper: #EEF2EA;
+}
+
+/* Steel + electric blue: modern, techy, calm */
+[data-palette="steel"] {
+  --hazard: #2FB8FF; --hazard-hover: #66CCFF; --on-hazard: #0D1117;
+  --ink: #0D1117; --ink-2: #1A2029; --ink-3: #222A35; --line: #2F3946;
+  --paper: #EEF2F6;
 }
 
 *,
@@ -61,7 +95,7 @@ h1, h2, h3 { margin: 0; }
   left: 8px;
   top: -60px;
   background: var(--hazard);
-  color: var(--ink);
+  color: var(--on-hazard);
   padding: 10px 16px;
   z-index: 100;
   font-weight: 700;
@@ -91,14 +125,14 @@ h1, h2, h3 { margin: 0; }
 .btn:hover { transform: translateY(-2px); }
 .btn:active { transform: translateY(0); }
 
-.btn-hazard { background: var(--hazard); color: var(--ink); }
-.btn-hazard:hover { background: #FFE04D; }
+.btn-hazard { background: var(--hazard); color: var(--on-hazard); }
+.btn-hazard:hover { background: var(--hazard-hover); }
 
 .btn-outline { border-color: var(--white); color: var(--white); background: transparent; }
 .btn-outline:hover { background: var(--white); color: var(--ink); }
 
 .btn-dark { background: var(--ink); color: var(--hazard); width: 100%; padding: 18px; }
-.btn-dark:hover { background: #000; }
+.btn-dark:hover { opacity: .88; }
 .btn-dark[disabled] { opacity: .6; cursor: wait; transform: none; }
 
 .btn-sm { padding: 12px 20px; min-height: 44px; font-size: 15px; }
@@ -110,7 +144,7 @@ h1, h2, h3 { margin: 0; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(17, 17, 17, .94);
+  background: color-mix(in srgb, var(--ink) 94%, transparent);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid transparent;
   transition: border-color .2s ease;
@@ -227,7 +261,7 @@ h1, h2, h3 { margin: 0; }
 }
 
 /* ---------- How it works ---------- */
-.band-hazard { background: var(--hazard); color: var(--ink); }
+.band-hazard { background: var(--hazard); color: var(--on-hazard); }
 
 .steps {
   list-style: none;
@@ -237,7 +271,7 @@ h1, h2, h3 { margin: 0; }
   grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 32px;
 }
-.steps li { border-top: 4px solid var(--ink); padding-top: 20px; }
+.steps li { border-top: 4px solid var(--on-hazard); padding-top: 20px; }
 .step-num { display: block; font-family: var(--font-display); font-size: 56px; line-height: 1; }
 .steps h3 { margin: 16px 0 8px; font-size: 22px; text-transform: uppercase; }
 .steps p { margin: 0; }
@@ -254,7 +288,7 @@ h1, h2, h3 { margin: 0; }
   border: 2px solid var(--line);
 }
 .haul-grid li { background: var(--ink); padding: 28px; transition: background-color .15s ease; }
-.haul-grid li:hover { background: #1A1A1A; }
+.haul-grid li:hover { background: var(--ink-2); }
 .haul-grid h3 { font-size: 20px; text-transform: uppercase; margin-bottom: 6px; }
 .haul-grid p { margin: 0; color: var(--muted); }
 
@@ -425,11 +459,16 @@ h1, h2, h3 { margin: 0; }
     bottom: 0;
     z-index: 60;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
-    background: rgba(17, 17, 17, .96);
+    background: color-mix(in srgb, var(--ink) 96%, transparent);
     border-top: 1px solid var(--line);
   }
   .mobile-bar .btn { padding: 12px; }
   body { padding-bottom: 76px; }
+}
+
+@media (max-width: 360px) {
+  :root { --gutter: 16px; }
+  .logo { font-size: 20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
